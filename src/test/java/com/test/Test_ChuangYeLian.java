@@ -10,23 +10,25 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Test_LianYingV2 {
+public class Test_ChuangYeLian {
 	private static ChromeDriver chromeDriver;
 	public static void main(String[] args) throws InterruptedException {
 		openChrome();
-		// 设置显示等待
-		WebDriverWait webDriverWait = new WebDriverWait(chromeDriver, 10);
-		// 找到div标签并等待能被点击
-		webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[@class='van-tab van-tab--active']")));
-		// 点击div标签显示密码登录tab
-		chromeDriver.findElement(By.xpath("//div[@class='van-tab van-tab--active']")).click();
+		chromeDriver.findElement(By.id("username")).sendKeys("shuwen");
+		chromeDriver.findElement(By.id("password")).sendKeys("shuwen1234");
+		chromeDriver.findElement(By.id("protocol")).click();
+		chromeDriver.findElement(By.className("submitBtn")).click();
+		WebDriverWait webDriverWait = new WebDriverWait(chromeDriver, 5);
+		webDriverWait.until(ExpectedConditions.elementToBeClickable(chromeDriver.findElement(By.xpath("//span[text()='租赁管理']"))));
+		chromeDriver.findElement(By.xpath("//span[text()='租赁管理']")).click();
+		chromeDriver.findElement(By.xpath("//li[text()='租赁应收管理']")).click();
 	}
 	public static void openChrome() {
 		// 设置谷歌浏览器驱动位置
 		System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
 		// 打开谷歌浏览器
 		chromeDriver = new ChromeDriver();
-		// 打开连营经纪人端测试网址
-		chromeDriver.get("http://agent.innonly.com");
+		// 打开测试网址
+		chromeDriver.get("http://www.innonly.com");
 	}
 }

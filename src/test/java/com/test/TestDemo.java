@@ -1,6 +1,7 @@
 package com.test;
 
 import java.security.cert.PKIXRevocationChecker.Option;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import javax.swing.text.Position;
@@ -8,6 +9,7 @@ import javax.swing.text.Position;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Point;
 import org.openqa.selenium.WebDriver.Navigation;
 import org.openqa.selenium.WebDriver.Options;
@@ -15,8 +17,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TestDemo {
@@ -117,27 +121,99 @@ public class TestDemo {
 //		WebElement webElement1 = webDriverWait.until(ExpectedConditions.textToBePresentInElement(locator));// 在页面元素中是否包含特定的文本
 //		WebElement webElement1 = webDriverWait.until(ExpectedConditions.presenceOfElementLocated(locator));// 页面元素在页面中存在
 		
-		// 找到本地的html文件并用浏览器打开
-		chromeDriver.get("D:\\Sublime Text 3x86\\file\\demo\\auto_test.html");
+//		// 找到本地的html文件并用浏览器打开
+//		chromeDriver.get("D:\\Sublime Text 3x86\\file\\demo\\auto_test.html");
+//		
+//		// 找到按钮元素并点击，弹出弹框
+//		chromeDriver.findElement(By.id("button_alert")).click();
+//		Thread.sleep(3000);
+//		// 用.switchTo().alert()找到页面上的alert弹框，返回Alert对象
+//		Alert alert = chromeDriver.switchTo().alert();
+//		// 用accept()方法确定
+//		alert.accept();
+//		// 用dismiss()方法取消
+//		alert.dismiss();
+//		// 用getText()方法获取文本信息
+//		System.out.println(alert.getText());
+//		
+//		// confirm弹框的写法与之类似
+//		chromeDriver.findElement(By.id("button_confirm")).click();
+//		Thread.sleep(3000);
+//		chromeDriver.switchTo().alert().accept();
+//		chromeDriver.switchTo().alert().dismiss();
+//		System.out.println(chromeDriver.switchTo().alert().getText());
 		
-		// 找到按钮元素并点击，弹出弹框
-		chromeDriver.findElement(By.id("button_alert")).click();
-		Thread.sleep(3000);
-		// 用.switchTo().alert()找到页面上的alert弹框，返回Alert对象
-		Alert alert = chromeDriver.switchTo().alert();
-		// 用accept()方法确定
-		alert.accept();
-		// 用dismiss()方法取消
-		alert.dismiss();
-		// 用getText()方法获取文本信息
-		System.out.println(alert.getText());
+//		chromeDriver.get("D:\\Sublime Text 3x86\\file\\iframe\\a.html");
+//		Thread.sleep(2000);
+//		chromeDriver.findElement(By.id("a")).sendKeys("aaa");
+//		// 切换iframe
+//		chromeDriver.switchTo().frame("b");
+//		Thread.sleep(2000);
+//		chromeDriver.findElement(By.id("b")).sendKeys("bbb");
+//		chromeDriver.switchTo().frame("c");
+//		Thread.sleep(2000);
+//		chromeDriver.findElement(By.id("c")).sendKeys("ccc");
+//		// 切换完成后一定要记得切回默认内容页面（否则会找不到元素
+//		chromeDriver.switchTo().defaultContent();
 		
-		// confirm弹框的写法与之类似
-		chromeDriver.findElement(By.id("button_confirm")).click();
-		Thread.sleep(3000);
-		chromeDriver.switchTo().alert().accept();
-		chromeDriver.switchTo().alert().dismiss();
-		System.out.println(chromeDriver.switchTo().alert().getText());
+		
+//		chromeDriver.get("D:\\Sublime Text 3x86\\file\\window_test\\a.html");
+//		System.out.println("a:" + chromeDriver.getWindowHandle());
+//		Thread.sleep(2000);
+//		chromeDriver.findElement(By.xpath("//a[text()='跳转b']")).click();
+//		System.out.println("b:" + chromeDriver.getWindowHandle());
+//		Set<String> handles = chromeDriver.getWindowHandles();
+//		for (String handle : handles) {
+//			chromeDriver.switchTo().window(handle);
+//			if ("win_b".equals(chromeDriver.getTitle())) {
+//				break;
+//			}
+//		}
+//		chromeDriver.findElement(By.id("b")).sendKeys("这是输入框b");
+		
+//		// select下拉框，将web元素封装为select对象，以百度首页-设置-高级搜索为例
+//		Select select = new Select(element);
+//		chromeDriver.get("D:\\Sublime Text 3x86\\file\\select\\select.html");
+//		WebElement webElement = chromeDriver.findElement(By.id("slt"));
+//		Select select = new Select(webElement);
+//		// select索引是从0开始的
+//		select.selectByIndex(1);
+//		Thread.sleep(2000);
+//		select.selectByVisibleText("方案三");
+//		
+//		// select常用api
+//		select.getOptions();// 获取所有选项
+//		select.selectByIndex(int num);// 通过索引选中对应的元素
+//		select.selectByValue(String value);// 通过value值选择选项
+//		select.deselectByVisibleText(String text);// 通过option文本选择对应的选项
+		
+//		// 时间日期控件，分为两种：1.控件没有限制手动输入，直接调用sendKeys；2.控件有限制输入，则可以执行js脚本类改变元素的value值
+//		chromeDriver.get("D:\\Sublime Text 3x86\\file\\time时间控件\\time.html");
+//		Thread.sleep(2000);
+//		chromeDriver.findElement(By.id("txt")).sendKeys("2020/11/12");
+//		Thread.sleep(2000);
+//		chromeDriver.findElement(By.id("tm")).sendKeys("002020/11/12");
+//		Thread.sleep(2000);
+//		chromeDriver.findElement(By.id("tm_only")).sendKeys("002020/11/12");
+//		// 生成JavaScript对象
+//		JavascriptExecutor javascriptExecutor = (JavascriptExecutor)chromeDriver;
+//		// 执行js语句
+//		javascriptExecutor.executeScript("document.getElementById(\"tm_only\").removeAttribute(\"readonly\");");
+//		Thread.sleep(2000);
+//		chromeDriver.findElement(By.id("tm_only")).sendKeys("002020/11/12");
+		
+//		// 网址：http://www.treejs.cn/v3/demo/cn/exedit/drag.html
+//		chromeDriver.get("http://www.treejs.cn/v3/demo/cn/exedit/drag.html");
+//		WebElement from_el = chromeDriver.findElement(By.id("treeDemo_2_span"));
+//		WebElement to_el = chromeDriver.findElement(By.id("treeDemo_3_span"));
+//		// 实例化actions对象，鼠标的相关操作
+//		Actions actions = new Actions(chromeDriver);
+//		actions.clickAndHold(from_el).moveToElement(to_el).release().build().perform();
+		
+		// 文件上传：1.input标签，可以直接sendKeys；2.如果不是input类型的文件上传控件则需要第三方的工具，如autoit
+		chromeDriver.get("D:\\Sublime Text 3x86\\file\\文件上传\\file_commit.html");
+		chromeDriver.findElement(By.id("fl")).sendKeys("D:\\其他\\一寸照.jpg");
+		chromeDriver.findElement(By.id("but")).click();
 	}
 
 	public static void openChrome() {
